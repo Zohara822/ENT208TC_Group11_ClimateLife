@@ -1,8 +1,17 @@
 import { useState } from 'react';
-import { Globe } from 'lucide-react';
+import { Globe, ChevronLeft, ChevronRight } from 'lucide-react';
 
 function App() {
   const [language, setLanguage] = useState<'en' | 'zh'>('en');
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    { image: '/A.png', title: 'Real-Time Environmental Data + IoT Synchronization' },
+    { image: '/B.png', title: 'Smart Outfit, Plant and Environmental Tips' },
+    { image: '/C.png', title: 'IoT Device Compatibility' },
+    { image: '/D.png', title: 'Community Sharing and Topics' },
+    { image: '/E.png', title: 'AI Assistant Support' }
+  ];
 
   const content = {
     en: {
@@ -10,26 +19,30 @@ function App() {
       tagline: 'Your climate & lifestyle companion',
       description: 'Discover how to create an intelligent, energy-efficient, and eco-friendly living environment. ClimateLife provides comprehensive guides on smart home systems, including device control, network management, scene mode settings, and voice/remote operations.',
       features: [
-        'Smart device control and integration',
-        'Energy-efficient climate management',
-        'Personalized comfort settings',
-        'Voice and remote operations'
+        'Real-Time Environmental Data + IoT Synchronization',
+        'Smart Outfit, Plant and Environmental Tips',
+        'IoT Device Compatibility',
+        'Community Sharing and Topics'
       ],
       cta: 'Visit Website',
-      feedback: 'User Feedback'
+      feedback: 'User Feedback',
+      gallery: 'Feature Gallery',
+      followUs: 'Follow Us'
     },
     zh: {
       title: 'ClimateLife',
       tagline: '您的气候与生活伴侣',
       description: '探索如何打造智能、节能、环保的居住环境。ClimateLife 提供全面的智能家居系统指南，包括设备控制、联网管理、情景模式设置以及语音/远程操作等功能。',
       features: [
-        '智能设备控制与集成',
-        '节能气候管理',
-        '个性化舒适设置',
-        '语音与远程操作'
+        '实时环境数据 + 物联网同步',
+        '智能穿衣、植物和环境建议',
+        '物联网设备兼容性',
+        '社区分享和话题讨论'
       ],
       cta: '访问网站',
-      feedback: '用户反馈'
+      feedback: '用户反馈',
+      gallery: '功能展示',
+      followUs: '关注我们'
     }
   };
 
@@ -155,18 +168,110 @@ function App() {
         </div>
       </div>
 
-      <footer className="border-t border-teal-200/50 bg-white/50 backdrop-blur-sm py-8">
+      <section className="py-16 border-t border-teal-200/30">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-600">
-            {disclaimerContent[language].map((item, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <span className="text-lg">⚠️</span>
-                <span>{item}</span>
-                {index < disclaimerContent[language].length - 1 && (
-                  <span className="hidden sm:inline text-gray-400 ml-2">•</span>
-                )}
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+            {currentContent.gallery}
+          </h2>
+
+          <div className="relative max-w-4xl mx-auto">
+            <div className="rounded-2xl overflow-hidden shadow-2xl bg-white">
+              <img
+                src={slides[currentSlide].image}
+                alt={slides[currentSlide].title}
+                className="w-full h-auto"
+              />
+            </div>
+
+            <div className="text-center mt-4">
+              <p className="text-lg font-semibold text-gray-700 mb-6">
+                {slides[currentSlide].title}
+              </p>
+              <div className="flex items-center justify-center gap-4">
+                <button
+                  onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
+                  className="p-2 bg-teal-500 text-white rounded-full hover:bg-teal-600 transition-colors duration-300"
+                  aria-label="Previous slide"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+
+                <div className="flex gap-2">
+                  {slides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        index === currentSlide
+                          ? 'bg-teal-500 w-8'
+                          : 'bg-teal-200 hover:bg-teal-300'
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
+                  className="p-2 bg-teal-500 text-white rounded-full hover:bg-teal-600 transition-colors duration-300"
+                  aria-label="Next slide"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
               </div>
-            ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-teal-200/50 bg-white/50 backdrop-blur-sm py-12">
+        <div className="container mx-auto px-6">
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-center text-lg font-semibold text-gray-800 mb-6">
+                {currentContent.followUs}
+              </h3>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <a
+                  href="https://v.douyin.com/feyzfnWNtiw/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 bg-gradient-to-r from-black to-gray-800 text-white rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium"
+                >
+                  {language === 'en' ? 'Douyin' : '抖音'}
+                </a>
+                <a
+                  href="http://xhslink.com/o/9QegcFUiOnv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 bg-gradient-to-r from-red-400 to-red-500 text-white rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium"
+                >
+                  {language === 'en' ? 'Little Red Book' : '小红书'}
+                </a>
+                <a
+                  href="https://www.bilibili.com/video/BV1yiUjBkEGv/?share_source=copy_web&vd_source=d899eb94f058c9dc1a97f677cde18624"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium"
+                >
+                  Bilibili
+                </a>
+              </div>
+            </div>
+
+            <div className="border-t border-teal-200/30 pt-8">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-600">
+                {disclaimerContent[language].map((item, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <span className="text-lg">⚠️</span>
+                    <span>{item}</span>
+                    {index < disclaimerContent[language].length - 1 && (
+                      <span className="hidden sm:inline text-gray-400 ml-2">•</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </footer>
