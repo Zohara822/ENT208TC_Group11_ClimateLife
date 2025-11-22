@@ -184,9 +184,6 @@ function App() {
             </div>
 
             <div className="text-center mt-4">
-              <p className="text-lg font-semibold text-gray-700 mb-6">
-                {slides[currentSlide].title}
-              </p>
               <div className="flex items-center justify-center gap-4">
                 <button
                   onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
@@ -238,7 +235,7 @@ function App() {
                   rel="noopener noreferrer"
                   className="px-6 py-3 bg-gradient-to-r from-black to-gray-800 text-white rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium"
                 >
-                  {language === 'en' ? 'Douyin' : '抖音'}
+                  {language === 'en' ? 'TikTok' : '抖音'}
                 </a>
                 <a
                   href="http://xhslink.com/o/9QegcFUiOnv"
