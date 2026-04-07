@@ -30,7 +30,7 @@ function App() {
       followUs: 'Follow Us'
     },
     zh: {
-      title: 'ClimateLife',
+      title: 'Climate Life',
       tagline: '您的气候与生活伴侣',
       description: '探索如何打造智能、节能、环保的居住环境。ClimateLife 提供全面的智能家居系统指南，包括设备控制、联网管理、情景模式设置以及语音/远程操作等功能。',
       features: [
